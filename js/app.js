@@ -1,49 +1,56 @@
-// Enemies our player must avoid
+/**
+ * Enemies our player must avoid
+ */
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    // Number of enemy rows to occupy (Maybe turn in to difficulty level).
+    // Number of enemy rows to occupy.
     this.eRows = 3;
     
-    this.speedx = Math.floor(Math.random() * 150) + 50;
+    this.speedx = Math.floor(Math.random() * 120) + 100;
     // Randomized starting position.
     this.x = 1000;
     this.y = 0;
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    // The image/sprite for enemies.
     this.sprite = 'images/enemy-bug.png';
 }
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+ * Update the enemy's position, required method for game
+ * @param {number} dt A time delta between ticks
+ */
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
     if (this.x > 5 * 101) {
         this.restart();
     }
     this.x += this.speedx * dt;
 }
 
-// Draw the enemy on the screen, required method for game
+/**
+ * Draw the enemy on the screen, required method for game.
+ */
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+/**
+ * Method for setting the starting position and speed for an enemy.
+ */
 Enemy.prototype.restart = function() {
     this.x = Math.floor(Math.random() * 2) * -101 - 101;
     this.y = 54 + Math.floor(Math.random() * this.eRows) * 83;
     this.speedx = Math.floor(Math.random() * 150) + 20;
 }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+/**
+ * Player class.
+ */
 var Player = function() {
     this.x = undefined;
     this.y = undefined;
     this.sprite = 'images/char-cat-girl.png';
 }
+/**
+ * Test if the player encounters an enemy and reset position.
+ * @param {number} dt A time delta between ticks
+ */
 Player.prototype.update = function(dt) {
     if (this.x == undefined) {
         runSelector = true;
@@ -55,9 +62,18 @@ Player.prototype.update = function(dt) {
         }
     }
 }
+/**
+ * Method for drawing player on screen.
+ */
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+/**
+ * Handle keyboard input to adjust player position.
+ * Up, down, left, right for movement.
+ * "Esc" exits to player selection screen.
+ * @param {string} move_dir A word representing a pressed key.
+ */
 Player.prototype.handleInput = function(move_dir) {
     if (move_dir === 'left' && this.x > 0 ) {
         this.x -= 101;
@@ -77,13 +93,18 @@ Player.prototype.handleInput = function(move_dir) {
         runSelector = true;
     }
 }
-// Player starting position is bottom center.
+/**
+ * Sets player starting position at bottom center.
+ */
 Player.prototype.restart = function() {
     this.x = 2 * 101;
     this.y = 54 + 4 * 83;
 }
 
-// Selector (character selection) class
+/**
+ * Selector (character selection) class.
+ * Allows player to select one of five character images.
+ */
 var runSelector = true;
 var Selector = function() {
     this.y = 54 + 4 * 83;
@@ -99,6 +120,9 @@ var Selector = function() {
         'images/char-princess-girl.png',
     ];
 }
+/**
+ * Draws the selection background, character choices and selector light.
+ */
 Selector.prototype.render = function() {
     if (runSelector) {
         ctx.globalAlpha=0.6;
@@ -114,6 +138,10 @@ Selector.prototype.render = function() {
         ctx.globalAlpha=1;
     }
 }
+/**
+ * Moves the selector light from character to character after keyboard input.
+ * @param {number} dt A time delta between ticks
+ */
 Selector.prototype.update = function(dt) {
     // Move selection icon.
     var diff = this.goto - this.x;
@@ -128,6 +156,11 @@ Selector.prototype.update = function(dt) {
     this.speed = 10*Math.abs(diff * dt);  
     
 }
+/**
+ * Handle keyboard input to move selector light to different character images.
+ * "Enter" key adds selected image to player object and starts game.
+ * @param {string} move_dir A word representing a pressed key.
+ */
 Selector.prototype.handleInput = function(move_dir) {
     if (move_dir === 'left' && this.goto > 0 ) {
         this.goto -= 101;
@@ -142,23 +175,26 @@ Selector.prototype.handleInput = function(move_dir) {
     }
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Number of enemies to add.
+/**
+ * Instantiate game objects.
+ * Place all enemy objects in an array called allEnemies
+ * Set number of enemies to add.
+ * Place the player object in a variable called player.
+ */
 var nEnemies = 4;
 var allEnemies = [];
 for (var i = 0; i < nEnemies; i++){
     allEnemies.push(new Enemy());
 }
-// Place the player object in a variable called player
 var player = new Player();
 var selector = new Selector();
-//player.restart();
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-// Key codes found at http://www.javascripter.net/faq/keycodes.htm
+/**
+ * This listens for key presses and sends the keys to your
+ * Player.handleInput() method. You don't need to modify this.
+ * Key codes found at http://www.javascripter.net/faq/keycodes.htm
+ */
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
