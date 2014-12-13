@@ -8,4 +8,5 @@ Resources consulted:
 - https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Comments
 
 Author: Jay W. Johnson
+
 Date: 12/13/2014
