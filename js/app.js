@@ -1,5 +1,6 @@
 /**
  * Enemies our player must avoid
+ * @constructor
  */
 var Enemy = function() {
     // Number of enemy rows to occupy.
@@ -41,6 +42,7 @@ Enemy.prototype.restart = function() {
 
 /**
  * Player class.
+ * @constructor
  */
 var Player = function() {
     this.x = undefined;
@@ -104,8 +106,8 @@ Player.prototype.restart = function() {
 /**
  * Selector (character selection) class.
  * Allows player to select one of five character images.
+ * @constructor
  */
-var runSelector = true;
 var Selector = function() {
     this.y = 54 + 4 * 83;
     this.x = 0;
@@ -120,15 +122,19 @@ var Selector = function() {
         'images/char-princess-girl.png',
     ];
 }
+// Boolean that shows or hides the character selection menu.
+var runSelector = true;
 /**
  * Draws the selection background, character choices and selector light.
  */
 Selector.prototype.render = function() {
     if (runSelector) {
+        // Draw a semi-transparent blue backdrop.
         ctx.globalAlpha=0.6;
         ctx.fillStyle = '#03f';
         ctx.fillRect(0,50,505,540);
         ctx.globalAlpha=1;
+        // Draw selector light image and characters.
         ctx.drawImage(Resources.get(this.selectorSprite), this.x, this.y);
         for (var i = 0; i < 5; i++) {
             ctx.drawImage(Resources.get(this.sprites[i]), i * 101, this.y);
@@ -136,6 +142,12 @@ Selector.prototype.render = function() {
         ctx.globalAlpha=0.1;
         ctx.drawImage(Resources.get(this.selectorSprite), this.x, this.y);
         ctx.globalAlpha=1;
+        // Text instructions on selection screen.
+        ctx.fillStyle = '#ff1';
+        ctx.font = "30px Georgia";
+        ctx.fillText('<Enter> to select a character.', 60, 280);
+        ctx.fillText('<Esc> to return to this menu.', 60, 340);
+                     
     }
 }
 /**
@@ -152,7 +164,7 @@ Selector.prototype.update = function(dt) {
     } else {
         this.x = this.goto;
     }
-    // Adjust speed.
+    // Adjust icon movement speed based on distance from target.
     this.speed = 10*Math.abs(diff * dt);  
     
 }
@@ -193,7 +205,7 @@ var selector = new Selector();
 /**
  * This listens for key presses and sends the keys to your
  * Player.handleInput() method. You don't need to modify this.
- * Key codes found at http://www.javascripter.net/faq/keycodes.htm
+ * Extra key codes found at http://www.javascripter.net/faq/keycodes.htm
  */
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
