@@ -51,6 +51,7 @@ var Player = function() {
 }
 /**
  * Test if the player encounters an enemy and reset position.
+ * Also reset when encountering the water.
  * @param {number} dt A time delta between ticks
  */
 Player.prototype.update = function(dt) {
@@ -62,6 +63,9 @@ Player.prototype.update = function(dt) {
            && allEnemies[i].y == this.y) {
             this.restart();
         }
+    }
+    if (this.y <= 0) {
+        this.restart();
     }
 }
 /**
@@ -83,7 +87,7 @@ Player.prototype.handleInput = function(move_dir) {
     if (move_dir === 'right' && this.x < 4 * 101 ) {
         this.x += 101;
     }
-    if (move_dir === 'up' && this.y > 54 ) {
+    if (move_dir === 'up' && this.y >= 54 ) {
         this.y -= 83;
     }
     if (move_dir === 'down' && this.y < 4 * 83 ) {
@@ -144,7 +148,7 @@ Selector.prototype.render = function() {
         ctx.globalAlpha=1;
         // Text instructions on selection screen.
         ctx.fillStyle = '#ff1';
-        ctx.font = "30px Georgia";
+        ctx.font = '30px Georgia';
         ctx.fillText('<Enter> to select a character.', 60, 280);
         ctx.fillText('<Esc> to return to this menu.', 60, 340);
                      
