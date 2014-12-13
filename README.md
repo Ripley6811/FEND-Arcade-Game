@@ -1,6 +1,11 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+Project 3 submission.
 
-for self-checking their submission.
+Resources consulted:
+- http://www.w3schools.com/js/default.asp
+- https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Comments
+
+Author: Jay W. Johnson
+Date: 12/13/2014
