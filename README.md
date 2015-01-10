@@ -26,3 +26,5 @@ Resources consulted:
 Author: Jay W. Johnson
 
 Date: 12/13/2014
+
+Resubmission Date: 1/10/2015 - Added game instructions.
