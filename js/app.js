@@ -1,3 +1,9 @@
+
+var xsteps = function(nTiles) {return nTiles*101;}
+var ysteps = function(nTiles) {return nTiles*83;}
+var randomSpeed = function() {return Math.floor(Math.random() * 150) + 20;}
+var touch_threshold = 66;
+
 /**
  * Enemies our player must avoid
  * @constructor
@@ -6,7 +12,7 @@ var Enemy = function() {
     // Number of enemy rows to occupy.
     this.eRows = 3;
     
-    this.speedx = Math.floor(Math.random() * 120) + 100;
+    this.speedx = randomSpeed();
     // Randomized starting position.
     this.x = 1000;
     this.y = 0;
@@ -19,7 +25,7 @@ var Enemy = function() {
  * @param {number} dt A time delta between ticks
  */
 Enemy.prototype.update = function(dt) {
-    if (this.x > 5 * 101) {
+    if (this.x > xsteps(5)) {
         this.restart();
     }
     this.x += this.speedx * dt;
@@ -35,9 +41,9 @@ Enemy.prototype.render = function() {
  * Method for setting the starting position and speed for an enemy.
  */
 Enemy.prototype.restart = function() {
-    this.x = Math.floor(Math.random() * 2) * -101 - 101;
-    this.y = 54 + Math.floor(Math.random() * this.eRows) * 83;
-    this.speedx = Math.floor(Math.random() * 150) + 20;
+    this.x = xsteps(-1);
+    this.y = 54 + ysteps(Math.floor(Math.random() * this.eRows));
+    this.speedx = randomSpeed();
 }
 
 /**
@@ -59,8 +65,8 @@ Player.prototype.update = function(dt) {
         runSelector = true;
     }
     for (var i = 0; i < nEnemies; i++){
-        if (Math.abs(allEnemies[i].x - this.x) < 66
-           && allEnemies[i].y == this.y) {
+        if (Math.abs(allEnemies[i].x - this.x) < touch_threshold
+            && allEnemies[i].y == this.y) {
             this.restart();
         }
     }
@@ -82,16 +88,16 @@ Player.prototype.render = function() {
  */
 Player.prototype.handleInput = function(move_dir) {
     if (move_dir === 'left' && this.x > 0 ) {
-        this.x -= 101;
+        this.x -= xsteps(1);
     }
-    if (move_dir === 'right' && this.x < 4 * 101 ) {
-        this.x += 101;
+    if (move_dir === 'right' && this.x < xsteps(4) ) {
+        this.x += xsteps(1);
     }
     if (move_dir === 'up' && this.y >= 54 ) {
-        this.y -= 83;
+        this.y -= ysteps(1);
     }
-    if (move_dir === 'down' && this.y < 4 * 83 ) {
-        this.y += 83;
+    if (move_dir === 'down' && this.y < ysteps(4) ) {
+        this.y += ysteps(1);
     }
     if (move_dir === 'esc') {
         this.y = undefined;
@@ -103,8 +109,8 @@ Player.prototype.handleInput = function(move_dir) {
  * Sets player starting position at bottom center.
  */
 Player.prototype.restart = function() {
-    this.x = 2 * 101;
-    this.y = 54 + 4 * 83;
+    this.x = xsteps(2);
+    this.y = 54 + ysteps(4);
 }
 
 /**
@@ -113,7 +119,7 @@ Player.prototype.restart = function() {
  * @constructor
  */
 var Selector = function() {
-    this.y = 54 + 4 * 83;
+    this.y = 54 + ysteps(4);
     this.x = 0;
     this.goto = 0;
     this.speed = 0;
@@ -141,7 +147,7 @@ Selector.prototype.render = function() {
         // Draw selector light image and characters.
         ctx.drawImage(Resources.get(this.selectorSprite), this.x, this.y);
         for (var i = 0; i < 5; i++) {
-            ctx.drawImage(Resources.get(this.sprites[i]), i * 101, this.y);
+            ctx.drawImage(Resources.get(this.sprites[i]), xsteps(i), this.y);
         }
         ctx.globalAlpha=0.1;
         ctx.drawImage(Resources.get(this.selectorSprite), this.x, this.y);
@@ -179,14 +185,14 @@ Selector.prototype.update = function(dt) {
  */
 Selector.prototype.handleInput = function(move_dir) {
     if (move_dir === 'left' && this.goto > 0 ) {
-        this.goto -= 101;
+        this.goto -= xsteps(1);
     }
-    if (move_dir === 'right' && this.goto < 4 * 101 ) {
-        this.goto += 101;
+    if (move_dir === 'right' && this.goto < xsteps(4) ) {
+        this.goto += xsteps(1);
     }
     if (move_dir === 'enter') {
         runSelector = false;
-        player.sprite = this.sprites[this.goto / 101];
+        player.sprite = this.sprites[this.goto / xsteps(1)];
         player.restart()
     }
 }
