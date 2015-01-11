@@ -10,9 +10,9 @@ Game Location
 
 Game Instructions
 -----------------
-You get five characters to choose from on the initial screen. Use **left and right arrows** to move the light over the character that you want and then hit **enter**. Use the **escape** key to return to the character selection menu at any time.
+You get five characters to choose from on the initial screen. Use **left and right arrows** to move the selection light over the character that you want and then hit **enter**. Use the **escape** key to return to the character selection menu at any time.
 
-The game starts with your character at the bottom center position. Use the **arrow keys** to move your character from tile to tile. The objective is to move your character to the river without being stopped by a ravenous ladybug. If the cute yet dangerous ladybug touches your character, then it will be returned to the bottom center starting position. Also, if you are *very nimble* and make it all the way to the river, you will then be rewarded with a free return trip to the bottom center starting position.
+The goal is to move your character to the river. The game starts with your character at the bottom center position. Use the **arrow keys** to move your character from tile to tile. The objective is to move your character to the river without being stopped by a ravenous ladybug. If the cute yet dangerous ladybug touches your character, then it will be returned to the bottom center starting position. Also, if you are *very nimble* and make it all the way to the river, you will then be rewarded with a free return trip to the bottom center starting position.
  
 
 Submission Information
