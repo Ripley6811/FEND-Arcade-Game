@@ -28,5 +28,5 @@ Author: Jay W. Johnson
 First Submission Date: 12/13/2014
 
 Resubmission Date: 1/11/2015
-    - Added game instructions.
-    - Refactored constants and helper functions.
+- Added game instructions.
+- Refactored constants and helper functions.
