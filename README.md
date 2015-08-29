@@ -3,8 +3,8 @@ frontend-nanodegree-arcade-game
 
 Game Location
 -------------
-- [Web site live view](http://ripley6811.github.io/frontend-nanodegree-arcade-game/)
-- [Github Repository](https://github.com/Ripley6811/frontend-nanodegree-arcade-game/tree/gh-pages) - (gh-pages branch)
+- [Web site live view](http://ripley6811.github.io/FEND-Arcade-Game/)
+- [Github Repository](http://ripley6811.github.io/FEND-Arcade-Game/tree/gh-pages) - (gh-pages branch)
  
 
 
